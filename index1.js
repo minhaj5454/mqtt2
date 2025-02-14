@@ -1,10 +1,8 @@
 const mqtt = require('mqtt');
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 // ✅ MongoDB se connect ho rahe hain
 mongoose.connect('mongodb://localhost:27017/mqtt_messages')

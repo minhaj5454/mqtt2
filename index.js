@@ -26,14 +26,14 @@ client.on('connect', () => {
   console.log("✅ Connected to MQTT broker");
 
   // 1st topic to send msg from myMQTT
-  client.subscribe('device/+/to/server', (err) => {
+  client.subscribe('device/+/to/server', { qos: 2 },(err) => {
     if (!err) {
       console.log("📩 Subscribed to all device messages");
     }
   });
 
   // 2nd topic to send msg from myMQTT
-  client.subscribe('device/+/to/server2', (err) => {
+  client.subscribe('device/+/to/server2', { qos: 2 },(err) => {
     if (!err) {
       console.log("📩 Subscribed to all device messages");
     }
@@ -72,7 +72,7 @@ app.post('/send', (req, res) => {
   const topic = `server/to/device/${deviceId}`;  // Dynamic Device ID
   const payload = JSON.stringify(message);  // JSON format me message bhejna
 
-  client.publish(topic, payload);
+  client.publish(topic, payload,{ qos: 2 });
 
   console.log(`📤 Sent to [${deviceId}]:`, message);
   res.json({ success: true, message: `Sent to [${deviceId}]: ${JSON.stringify(message)}` });
